@@ -1,15 +1,21 @@
 import { Link } from "react-router-dom";
+import {
+  SongCard,
+  AlbumTitle
+} from "./styles";
 
 function Song({ album }) {
   return (
-    <div className="song-card">
-      <h3>{album.strAlbum}</h3>
-      <p>Artista: {album.strArtist}</p>
-      <p>Año: {album.intYearReleased}</p>
+    <SongCard>
+      <AlbumTitle featured={album.intYearReleased < 2000}>
+        {album.strAlbum}
+      </AlbumTitle>
+      <p>{album.strArtist}</p>
+      <p>{album.intYearReleased}</p>
       <Link to={`/song/${album.idAlbum}`}>
         Ver detalles
       </Link>
-    </div>
+    </SongCard>
   );
 }
 
