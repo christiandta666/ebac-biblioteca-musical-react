@@ -1,14 +1,14 @@
-import "./styles.css";
+import { Link } from "react-router-dom";
 
-function Song({ song, onAdd }) {
+function Song({ album }) {
   return (
     <div className="song-card">
-      <h3>{song.title}</h3>
-      <p>Artista: {song.artist}</p>
-      <p>Album: {song.album}</p>
-      <button onClick={() => onAdd(song)}>
-        Agregar a mi biblioteca
-      </button>
+      <h3>{album.strAlbum}</h3>
+      <p>Artista: {album.strArtist}</p>
+      <p>Año: {album.intYearReleased}</p>
+      <Link to={`/song/${album.idAlbum}`}>
+        Ver detalles
+      </Link>
     </div>
   );
 }

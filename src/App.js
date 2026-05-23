@@ -1,66 +1,49 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import {
+  Routes,
+  Route
+} from "react-router-dom";
 import Header from "./components/Header/Header";
+import SearchBar from "./components/SearchBar/SearchBar";
 import SearchResults from "./components/SearchResults/SearchResults";
-import Library from "./components/Library/Library";
-import "./App.css";
+import SongDetail from "./pages/SongDetail";
+import useFetch from "./hooks/useFetch";
 
 function App() {
-
-  const [searchResults, setSearchResults] = useState([
-    {
-      id: 1,
-      title: "Full Nelson",
-      artist: "Limp Bizkit",
-      album: "Chocolate Starfish and the Hotdog Flavored Water"
-    },
-    {
-      id: 2,
-      title:"Nutshell",
-      artist:"Alice in Chains",
-      album:"Jar of Flies"
-    },
-    {
-      id: 3,
-      title:"Points of Authority",
-      artist:"Linkin Park",
-      album:"Hybrid Theory"
-    },
-    {
-      id: 4,      
-      title:"Nosetalgia",
-      artist:"Pusha T ft Kendrick Lamar",
-      album:"My Name Is My Name"
-    },
-    {
-      id: 5,
-      title:"Linger",
-      artist:"The Cranberries",
-      album:"Everybody Else Is Doing It, So Why Can't We?"
-    },
-    {
-      id:6,
-      title:"Gimme the Loot",
-      artis:"The Notorius B.I.G",
-      album:"Ready to Die"
-    }
-  ]);
-  const [library, setLibrary] = useState([]);
-  function addToLibrary(song) {
-    setLibrary([...library, song]);
+  const [artist, setArtist] = useState("Linkin Park");
+  const url = `https://www.theaudiodb.com/api/v1/json/2/searchalbum.php?s=${artist}`;
+  const {
+    data,
+    loading,
+    error
+  } = useFetch(url);
+  function handleSearch(searchTerm) {
+    setArtist(searchTerm);
   }
-  useEffect(() => {
-    console.log("La biblioteca se actualizó");
-  }, [library]);
   return (
-    <div className="App">
+    <div>
       <Header />
-      <SearchResults
-        songs={searchResults}
-        onAdd={addToLibrary}
-      />
-      <Library
-        librarySongs={library}
-      />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <SearchBar onSearch={handleSearch} />
+              {loading && <p>Cargando...</p>}
+              {error && (
+                <p>
+                  Hubo un problema al cargar los datos
+                </p>
+              )}
+              {data && (<SearchResults albums={data.album}/>)}
+            </>
+          }
+        />
+        <Route
+          path="/song/:id"
+          element={<SongDetail />}
+        />
+      </Routes>
     </div>
   );
 }

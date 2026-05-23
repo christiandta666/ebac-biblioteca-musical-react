@@ -1,19 +1,18 @@
 import Song from "../Song/Song";
-import "./styles.css";
 
-function SearchResults({ songs, onAdd }) {
+function SearchResults({ albums }) {
+  if (!albums) {
+    return <p>No se encontraron álbumes</p>;
+  }
   return (
-    <div className="search-results">
-      <h2>Resultados de busqueda</h2>
-      <div className="songs-list">
-        {songs.map((song) => (
-          <Song
-            key={song.id}
-            song={song}
-            onAdd={onAdd}
-          />
-        ))}
-      </div>
+    <div>
+      <h2>Resultados</h2>
+      {albums.map((album) => (
+        <Song
+          key={album.idAlbum}
+          album={album}
+        />
+      ))}
     </div>
   );
 }
