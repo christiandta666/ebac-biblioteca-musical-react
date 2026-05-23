@@ -1,10 +1,10 @@
-import "./styles.css";
+import { HeaderContainer } from "./styles";
 
 function Header() {
   return (
-    <header className="header">
+    <HeaderContainer>
       <h1>Mi Playlist</h1>
-    </header>
+    </HeaderContainer>
   );
 }
 

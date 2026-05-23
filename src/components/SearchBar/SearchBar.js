@@ -1,4 +1,9 @@
 import { useState } from "react";
+import {
+  Form,
+  Input,
+  Button
+} from "./styles";
 
 function SearchBar({ onSearch }) {
   const [artist, setArtist] = useState("");
@@ -7,17 +12,18 @@ function SearchBar({ onSearch }) {
     onSearch(artist);
   }
   return (
-    <form onSubmit={handleSubmit}>
-      <input
+    <Form onSubmit={handleSubmit}>
+      <Input
         type="text"
         placeholder="Buscar artista..."
         value={artist}
         onChange={(e) => setArtist(e.target.value)}
       />
-      <button type="submit">
+      <Button type="submit">
         Buscar
-      </button>
-    </form>
+      </Button>
+    </Form>
   );
 }
+
 export default SearchBar;
