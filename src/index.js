@@ -7,16 +7,20 @@ import {
 import App from "./App";
 import theme from "./styles/theme";
 import GlobalStyles from "./styles/GlobalStyles";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root")
 );
 
 root.render(
-  <ThemeProvider theme={theme}>
-    <BrowserRouter>
-      <GlobalStyles />
-      <App />
-    </BrowserRouter>
-  </ThemeProvider>
+  <Provider store={store}>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <GlobalStyles />
+        <App />
+      </BrowserRouter>
+    </ThemeProvider>
+  </Provider>
 );

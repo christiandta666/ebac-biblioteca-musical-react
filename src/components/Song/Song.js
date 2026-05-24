@@ -4,7 +4,7 @@ import {
   AlbumTitle
 } from "./styles";
 
-function Song({ album }) {
+function Song({ album, onAdd }) {
   return (
     <SongCard>
       <AlbumTitle featured={album.intYearReleased < 2000}>
@@ -12,6 +12,9 @@ function Song({ album }) {
       </AlbumTitle>
       <p>{album.strArtist}</p>
       <p>{album.intYearReleased}</p>
+      <button onClick={() => onAdd(album)}>
+        Agregar a mi biblioteca
+      </button>
       <Link to={`/song/${album.idAlbum}`}>
         Ver detalles
       </Link>
