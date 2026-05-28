@@ -1,28 +1,28 @@
 import { useState } from "react";
-import {
-  Form,
-  Input,
-  Button
-} from "./styles";
+import { useDispatch } from "react-redux";
+import { fetchSongs } from "../../redux/slices/searchSlice";
 
-function SearchBar({ onSearch }) {
+function SearchBar() {
   const [artist, setArtist] = useState("");
+  const dispatch = useDispatch();
   function handleSubmit(e) {
     e.preventDefault();
-    onSearch(artist);
+    dispatch(fetchSongs(artist));
   }
   return (
-    <Form onSubmit={handleSubmit}>
-      <Input
+    <form onSubmit={handleSubmit}>
+      <input
         type="text"
         placeholder="Buscar artista..."
         value={artist}
-        onChange={(e) => setArtist(e.target.value)}
+        onChange={(e) =>
+          setArtist(e.target.value)
+        }
       />
-      <Button type="submit">
+      <button type="submit">
         Buscar
-      </Button>
-    </Form>
+      </button>
+    </form>
   );
 }
 
